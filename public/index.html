@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
+	<!--link rel="stylesheet/less" href="less/responsive.less" type="text/css" /-->
+	<!--script src="js/less-1.3.3.min.js"></script-->
+	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
+	
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/style.css" rel="stylesheet">
+
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+    <script src="js/html5shiv.js"></script>
+  <![endif]-->
+
+  <!-- Fav and touch icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="img/apple-touch-icon-72-precomposed.png">
+  <link rel="apple-touch-icon-precomposed" href="img/apple-touch-icon-57-precomposed.png">
+  <link rel="shortcut icon" href="img/favicon.png">
+  
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/scripts.js"></script>
+	<script type="text/javascript">
+
+		function chargeData(){
+			
+			var	fileJSON = 'json/clientes.json.php';
+			var orderBy = $("#orderBy").val();
+
+			// Carrega a lista de clientes
+			$.getJSON(fileJSON, {
+				type: 'listaClientes',
+				orderBy: orderBy
+			}, function(data) {
+				
+				$('#listaClientes *').remove();
+
+				// mesmo o JSON vindo com a ordem correta (DESC) o $.each estava desfazendo a ordem.
+				if (orderBy === 'desc'){
+					for (i = Object.keys(data).length; i > 0; i--){
+						$('#listaClientes').append('<a id="'+i+'" href="#"><p>'+data[i]+'</p></a>');
+					}
+				} else {	
+					$.each(data, function(index, el) {
+						$('#listaClientes').append('<a id="'+index+'" href="#"><p>'+el+'</p></a>');
+					});
+				}
+			}).error(function() { 
+				console.log("error"); 
+
+			}).complete(function() { 
+				
+				// Carrega os registros completos do cliente
+				$("#listaClientes a").click(function(){
+					id = $(this).attr('id');
+
+					$.getJSON(fileJSON, {
+						type: 'id',
+						id: id
+					}, function(data) {
+
+						$("#nomeCliente").text(data.nome);
+						$("#cpf").text(data.cpf);
+						$("#endereco").text(data.endereco);
+						$("#telefone").text(data.telefone);
+						$("#sexo").text(data.sexo);
+
+					}).error(function() { 
+						console.log("error"); 
+					});
+				});
+
+				// Clica no primeiro registro para que os campos nao fiquem vazios
+				$("#listaClientes a:eq(0)").click();
+				
+			});			
+		}
+		
+		$(document).ready(function() {
+
+			// Carga inicial
+			chargeData();
+
+			// recarrega a lista de clientes quando altera a ordem
+			$("select").change(function(){
+				chargeData();
+			});
+		});
+
+	</script>
+</head>
+
+<body>
+<div class="container">
+	<div class="row clearfix">
+		<div class="col-md-12 column">
+			<div class="row clearfix">
+
+				<h1> Lista de Clientes</h1><br />
+				<div class="col-md-3 column">
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							Order By: 
+							<select id="orderBy">
+								<option value="asc">ASC</option>
+								<option value="desc">DESC</option>
+							</select>
+						</div>
+						<div class="panel-body" id="listaClientes">
+
+						</div>
+					</div>
+				</div>
+				<div class="col-md-8 column">
+					<h2 id="nomeCliente">Cliente</h2>
+					<ul>
+						<li>CPF: <span id="cpf"></span></li>
+						<li>Endereco: <span id="endereco"></span></li>
+						<li>Telefone: <span id="telefone"></span></li>
+						<li>Sexo: <span id="sexo"></span></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</body>
+</html>

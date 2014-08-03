@@ -8,14 +8,6 @@ class Cliente{
 	private $telefone;
 	private $sexo;
 
-	public function __construct($nome, $cpf, $endereco, $telefone, $sexo){
-		$this->nome = $nome;
-		$this->cpf = $cpf;
-		$this->endereco = $endereco;
-		$this->telefone = $telefone;
-		$this->sexo = $sexo;
-	}
-
 	public function getCliente(){
 		return (Object) array(
 			'nome' => $this->nome, 

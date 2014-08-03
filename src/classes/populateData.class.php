@@ -1,5 +1,5 @@
 <?php
-class PopulateData{
+class PopulateDefaultData{
 
 	private $client1;
 	private $client2;
@@ -18,16 +18,97 @@ class PopulateData{
 	public function __construct(){
 
 		// Populate clients
-		$this->cliente1 = new Cliente('Wellington', '000.000.000-00', 'Rua Aquela, 23', '00 0010-1034', 'M');
-		$this->cliente2 = new Cliente('Jose Maria', '111.222.222-00', 'Rua Talvez, 22', '22 2212-1234', 'M');
-		$this->cliente3 = new Cliente('Maria Jose', '333.333.000-00', 'Rua Ontem, 33', '33 3313-1234', 'F');
-		$this->cliente4 = new Cliente('Claudio Jose', '444.222.444-00', 'Rua Algo, 44', '44 4414-1235', 'M');
-		$this->cliente5 = new Cliente('Marcia', '555.555.555-00', 'Rua Nao Vou, 55', '55 5555-1234', 'F');
-		$this->cliente6 = new Cliente('Claudia', '654.678.610-00', 'Rua Claro, 66', '66 6666-1234', 'F');
-		$this->cliente7 = new Cliente('Gustavo', '777.777.111-03', 'Rua Dinheiro, 77', '77 7777-0123', 'M');
-		$this->cliente8 = new Cliente('Adriano', '888.123.456-88', 'Rua Facil, 88', '88 8888-9012', 'M');
-		$this->cliente9 = new Cliente('Flavio', '999.999.999-99', 'Rua Jose', '99 9999-0123', 'M');
-		$this->cliente10 = new Cliente('Flavia', '000.000.222-03', 'Avenida Local, 34', '00 1394-1444', 'F');
+		$this->cliente1 = new Cliente();
+		$this->cliente1
+			->setNome('Wellington')
+			->setCpf('000.000.000-00')
+			->setEndereco('Rua Aquela, 23')
+			->setTelefone('00 0010-1034')
+			->setSexo('M')
+		;
+
+		$this->cliente2 = new Cliente();
+		$this->cliente2
+			->setNome('Jose Maria')
+			->setCpf('111.222.222-00')
+			->setEndereco('Rua Talvez, 22')
+			->setTelefone('22 2212-1234')
+			->setSexo('M')
+		;
+
+		$this->cliente3 = new Cliente();
+		$this->cliente3
+			->setNome('Maria Jose')
+			->setCpf('333.333.000-00')
+			->setEndereco('Rua Ontem, 33')
+			->setTelefone('33 3313-1234')
+			->setSexo('F')
+		;
+
+		$this->cliente4 = new Cliente();
+		$this->cliente4
+			->setNome('Claudio Jose')
+			->setCpf('444.222.444-00')
+			->setEndereco('Rua Algo, 44')
+			->setTelefone('44 4414-1235')
+			->setSexo('M')
+		;
+
+		$this->cliente5 = new Cliente();
+		$this->cliente5
+			->setNome('Marcia')
+			->setCpf('555.555.555-00')
+			->setEndereco('Rua Nao Vou, 55')
+			->setTelefone('55 5555-1234')
+			->setSexo('F')
+		;
+
+		$this->cliente6 = new Cliente();
+		$this->cliente6
+			->setNome('Claudia')
+			->setCpf('654.678.610-00')
+			->setEndereco('Rua Claro, 66')
+			->setTelefone('66 6666-1234')
+			->setSexo('F')
+		;
+
+
+		$this->cliente7 = new Cliente();
+		$this->cliente7
+			->setNome('Gustavo')
+			->setCpf('777.777.111-03')
+			->setEndereco('Rua Dinheiro, 77')
+			->setTelefone('77 7777-0123')
+			->setSexo('M')
+		;
+
+		$this->cliente8 = new Cliente();
+		$this->cliente8
+			->setNome('Adriano')
+			->setCpf('888.123.456-88')
+			->setEndereco('Rua Facil, 88')
+			->setTelefone('88 8888-9012')
+			->setSexo('M')
+		;
+
+		$this->cliente9 = new Cliente();
+		$this->cliente9
+			->setNome('Flavio')
+			->setCpf('999.999.999-99')
+			->setEndereco('Rua Jose')
+			->setTelefone('99 9999-0123')
+			->setSexo('M')
+		;
+
+		$this->cliente10 = new Cliente();
+		$this->cliente10
+			->setNome('Flavia')
+			->setCpf('000.000.222-03')
+			->setEndereco('Avenida Local, 34')
+			->setTelefone('00 1394-1444')
+			->setSexo('F')
+		;
+
 	}
 
 	public function getArClientsFull(){

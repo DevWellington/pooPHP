@@ -6,7 +6,7 @@ require_once "../../src/lib/json.lib.php";
 
 header('Content-Type: application/json');
 
-$clientData = new PopulateData();
+$clientData = new PopulateDefaultData();
 
 // GETs
 $get = (isset($_GET['type'])) ? $_GET['type'] : null;

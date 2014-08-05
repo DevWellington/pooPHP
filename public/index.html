@@ -30,74 +30,6 @@
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
-	<script type="text/javascript">
-
-		function chargeData(){
-			
-			var	fileJSON = 'json/clientes.json.php';
-			var orderBy = $("#orderBy").val();
-
-			// Carrega a lista de clientes
-			$.getJSON(fileJSON, {
-				type: 'listaClientes',
-				orderBy: orderBy
-			}, function(data) {
-				
-				$('#listaClientes *').remove();
-
-				// mesmo o JSON vindo com a ordem correta (DESC) o $.each estava desfazendo a ordem.
-				if (orderBy === 'desc'){
-					for (i = Object.keys(data).length; i > 0; i--){
-						$('#listaClientes').append('<a id="'+i+'" href="#"><p>'+data[i]+'</p></a>');
-					}
-				} else {	
-					$.each(data, function(index, el) {
-						$('#listaClientes').append('<a id="'+index+'" href="#"><p>'+el+'</p></a>');
-					});
-				}
-			}).error(function() { 
-				console.log("error"); 
-
-			}).complete(function() { 
-				
-				// Carrega os registros completos do cliente
-				$("#listaClientes a").click(function(){
-					id = $(this).attr('id');
-
-					$.getJSON(fileJSON, {
-						type: 'id',
-						id: id
-					}, function(data) {
-
-						$("#nomeCliente").text(data.nome);
-						$("#cpf").text(data.cpf);
-						$("#endereco").text(data.endereco);
-						$("#telefone").text(data.telefone);
-						$("#sexo").text(data.sexo);
-
-					}).error(function() { 
-						console.log("error"); 
-					});
-				});
-
-				// Clica no primeiro registro para que os campos nao fiquem vazios
-				$("#listaClientes a:eq(0)").click();
-				
-			});			
-		}
-		
-		$(document).ready(function() {
-
-			// Carga inicial
-			chargeData();
-
-			// recarrega a lista de clientes quando altera a ordem
-			$("select#orderBy").change(function(){
-				chargeData();
-			});
-		});
-
-	</script>
 </head>
 
 <body>
@@ -105,7 +37,6 @@
 	<div class="row clearfix">
 		<div class="col-md-12 column">
 			<div class="row clearfix">
-
 				<h1> Lista de Clientes</h1><br />
 				<div class="col-md-3 column">
 					<div class="panel panel-default">
@@ -117,17 +48,19 @@
 							</select>
 						</div>
 						<div class="panel-body" id="listaClientes">
-
 						</div>
 					</div>
 				</div>
 				<div class="col-md-8 column">
 					<h2 id="nomeCliente">Cliente</h2>
 					<ul>
+						<li>Tipo Cliente: <span id="tipoCliente"></span></li>
 						<li>CPF: <span id="cpf"></span></li>
+						<li>CNPJ: <span id="cnpj"></span></li>
 						<li>Endereco: <span id="endereco"></span></li>
+						<li>Endereco Cobrança: <span id="enderecoCobranca"></span></li>
 						<li>Telefone: <span id="telefone"></span></li>
-						<li>Sexo: <span id="sexo"></span></li>
+						<li>Grau Importancia: <span id="starts"></span></li>
 					</ul>
 				</div>
 			</div>

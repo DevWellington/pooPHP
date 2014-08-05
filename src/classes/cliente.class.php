@@ -1,140 +1,73 @@
 <?php
 
-class Cliente{
+require_once '../../src/interfaces/ImportanceClientInterface.interface.php';
+require_once '../../src/interfaces/EnderecoCobrancaClienteInterface.interface.php';
 
-	private $nome;
-	private $cpf;
-	private $endereco;
-	private $telefone;
-	private $sexo;
+class Cliente implements ImportanceClientInterface, EnderecoCobrancaClienteInterface{
 
-	public function getCliente(){
-		return (Object) array(
-			'nome' => $this->nome, 
-			'cpf' => $this->cpf,
-			'endereco' => $this->endereco,
-			'telefone' => $this->telefone,
-			'sexo' => $this->sexo
-		);
-	}
+    // Attributes Interfaces
+    protected $starts;
+    protected $enderecoCobranca;
 
-    /**
-     * Gets the value of nome.
-     *
-     * @return mixed
-     */
-    public function getNome()
-    {
+    // Attributes Class
+    protected $nome;
+    protected $endereco;
+    protected $telefone;
+    protected $tipoCliente;
+
+    // Getters and Setters
+    public function getStarts(){
+        return $this->starts;
+    }
+
+    public function setStarts($starts){
+        $this->starts = $starts;
+        return $this;
+    }
+
+    public function getEnderecoCobranca(){
+        return $this->enderecoCobranca;
+    }
+
+    public function setEnderecoCobranca($enderecoCobranca){
+        $this->enderecoCobranca = $enderecoCobranca;
+        return $this;
+    }
+
+    public function getNome(){
         return $this->nome;
     }
     
-    /**
-     * Sets the value of nome.
-     *
-     * @param mixed $nome the nome 
-     *
-     * @return self
-     */
-    public function setNome($nome)
-    {
+    public function setNome($nome){
         $this->nome = $nome;
-
         return $this;
     }
 
-    /**
-     * Gets the value of cpf.
-     *
-     * @return mixed
-     */
-    public function getCpf()
-    {
-        return $this->cpf;
-    }
-    
-    /**
-     * Sets the value of cpf.
-     *
-     * @param mixed $cpf the cpf 
-     *
-     * @return self
-     */
-    public function setCpf($cpf)
-    {
-        $this->cpf = $cpf;
-
-        return $this;
-    }
-
-    /**
-     * Gets the value of endereco.
-     *
-     * @return mixed
-     */
-    public function getEndereco()
-    {
+    public function getEndereco(){
         return $this->endereco;
     }
     
-    /**
-     * Sets the value of endereco.
-     *
-     * @param mixed $endereco the endereco 
-     *
-     * @return self
-     */
-    public function setEndereco($endereco)
-    {
+    public function setEndereco($endereco){
         $this->endereco = $endereco;
-
         return $this;
     }
 
-    /**
-     * Gets the value of telefone.
-     *
-     * @return mixed
-     */
-    public function getTelefone()
-    {
+    public function getTelefone(){
         return $this->telefone;
     }
     
-    /**
-     * Sets the value of telefone.
-     *
-     * @param mixed $telefone the telefone 
-     *
-     * @return self
-     */
-    public function setTelefone($telefone)
-    {
+    public function setTelefone($telefone){
         $this->telefone = $telefone;
-
         return $this;
     }
 
-    /**
-     * Gets the value of sexo.
-     *
-     * @return mixed
-     */
-    public function getSexo()
-    {
-        return $this->sexo;
+    public function getTipoCliente(){
+        return $this->tipoCliente;
     }
-    
-    /**
-     * Sets the value of sexo.
-     *
-     * @param mixed $sexo the sexo 
-     *
-     * @return self
-     */
-    public function setSexo($sexo)
-    {
-        $this->sexo = $sexo;
 
-        return $this;
+    public function setTipoCliente($tipoCliente){
+        $this->tipoCliente = $tipoCliente;
+        return $tipoCliente;
     }
 }
+

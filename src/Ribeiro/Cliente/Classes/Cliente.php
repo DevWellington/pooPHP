@@ -23,7 +23,8 @@ abstract class Cliente implements ImportanceClientInterface, EnderecoCobrancaCli
     }
 
     public function setStarts($starts){
-        $this->starts = $starts;
+
+        $this->starts = ($starts > 5) ? 5 : $starts;
         return $this;
     }
 

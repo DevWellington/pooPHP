@@ -1,9 +1,9 @@
 <?php
+require_once "../../src/fixture.php";
 
 header('Content-Type: application/json');
 
-require_once "../../src/lib/json.lib.php";
-require_once "../../src/fixture.php";
+use \Ribeiro\Utils\Json as Json;
 
 // GETs
 $get = (isset($_GET['type'])) ? $_GET['type'] : null;

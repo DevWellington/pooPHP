@@ -1,7 +1,9 @@
 <?php
 
-require_once 'classes/ClientePF.class.php';
-require_once 'classes/ClientePJ.class.php';
+require_once "autoload.php";
+
+use Ribeiro\Cliente\Classes\ClientePF as ClientePF;
+use Ribeiro\Cliente\Classes\ClientePJ as ClientePJ;
 
 $clientePF1 = new ClientePF();
 $clientePF1

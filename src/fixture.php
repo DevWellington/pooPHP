@@ -2,8 +2,8 @@
 
 require_once "autoload.php";
 
-use Ribeiro\Cliente\Classes\ClientePF as ClientePF;
-use Ribeiro\Cliente\Classes\ClientePJ as ClientePJ;
+use Ribeiro\Cliente\Types\ClientePF as ClientePF;
+use Ribeiro\Cliente\Types\ClientePJ as ClientePJ;
 
 $clientePF1 = new ClientePF();
 $clientePF1
@@ -114,17 +114,16 @@ $clientePJ5
 
 // Array of all clients
 $arClientesFull = array(
-	1 => $clientePJ5->getCliente(),
-	2 => $clientePJ1->getCliente(),
-	3 => $clientePF3->getCliente(),
-	4 => $clientePF1->getCliente(),
-	5 => $clientePJ3->getCliente(),
-	6 => $clientePJ2->getCliente(),
-	7 => $clientePF4->getCliente(),
-	8 => $clientePF2->getCliente(),
-	9 => $clientePF5->getCliente(),
-	10 => $clientePJ4->getCliente()
+    $clientePF1,
+    $clientePF2,
+    $clientePF3,
+    $clientePF4,
+    $clientePF5,
+    $clientePJ1,
+    $clientePJ2,
+    $clientePJ3,
+    $clientePJ4,
+    $clientePJ5
 );
-
 
 return $arClientesFull;

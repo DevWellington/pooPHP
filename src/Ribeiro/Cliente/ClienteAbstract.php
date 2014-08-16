@@ -1,11 +1,11 @@
 <?php
 
-namespace Ribeiro\Cliente\Classes;
+namespace Ribeiro\Cliente;
 
 use Ribeiro\Cliente\Interfaces\ImportanceClientInterface as ImportanceClientInterface;
 use Ribeiro\Cliente\Interfaces\EnderecoCobrancaClienteInterface as EnderecoCobrancaClienteInterface;
 
-abstract class Cliente implements ImportanceClientInterface, EnderecoCobrancaClienteInterface{
+abstract class ClienteAbstract implements ImportanceClientInterface, EnderecoCobrancaClienteInterface{
 
     // Attributes Interfaces
     protected $starts;
@@ -16,6 +16,7 @@ abstract class Cliente implements ImportanceClientInterface, EnderecoCobrancaCli
     protected $endereco;
     protected $telefone;
     protected $tipoCliente;
+    protected $type;
 
     // Getters and Setters
     public function getStarts(){
@@ -71,6 +72,10 @@ abstract class Cliente implements ImportanceClientInterface, EnderecoCobrancaCli
     public function setTipoCliente($tipoCliente){
         $this->tipoCliente = $tipoCliente;
         return $tipoCliente;
+    }
+
+    public function getType(){
+        return $this->type;
     }
 }
 

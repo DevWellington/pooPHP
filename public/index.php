@@ -1,5 +1,5 @@
 <?php
-require_once '../src/fixture.php';
+require_once '../src/bootstrap.php';
 define("FOLDER", "../");
 
 if (isset(\Ribeiro\Route\Route::getRoute()[2]))
@@ -7,7 +7,7 @@ if (isset(\Ribeiro\Route\Route::getRoute()[2]))
 elseif (isset(\Ribeiro\Route\Route::getRoute()[1]))
     $routeListOrder = \Ribeiro\Route\Route::getRoute()[1];
 else
-    $routeListOrder = null;
+    $routeListOrder = 'ASC';
 
 $routeCliente =
     (\Ribeiro\Route\Route::getRoute()[1] === "") ?
@@ -15,8 +15,24 @@ $routeCliente =
         (int) \Ribeiro\Route\Route::getRoute()[1]
 ;
 
-$clienteContent = new \Ribeiro\Cliente\Render\RenderClienteContent();
-$clienteList = new \Ribeiro\Cliente\Render\RenderClienteList();
+$pdo = \Ribeiro\DB\Connection::getInstance();
+
+// Lista de clientes
+$clientesLista = \Ribeiro\Cliente\Render\RenderClienteList::renderList(
+    new \Ribeiro\Cliente\Crud\CrudCliente($pdo),
+    array('id'),
+    $routeListOrder
+);
+
+if($routeCliente !== 0):
+    $objCliente = \Ribeiro\Cliente\Render\RenderClienteFactory::renderFactory(
+        $pdo,
+        \Ribeiro\Cliente\Render\RenderCliente::renderCliente(
+            new \Ribeiro\Cliente\Crud\CrudCliente($pdo),
+            $routeCliente
+        )
+    );
+endif;
 
 ?>
 
@@ -68,23 +84,34 @@ $clienteList = new \Ribeiro\Cliente\Render\RenderClienteList();
                             <a href="./DESC"><button>DESC</button></a>
                         </div>
 						<div class="panel-body" id="listaClientes">
-                            <?=
-                                $clienteList
-                                    ->setArrayClients($arClientesFull)
-                                    ->setOrder($routeListOrder)
-                                    ->render()
-                                ;
-                            ?>
+
+                            <?php foreach ($clientesLista as $value) : ?>
+                                <a href='//<?=$_SERVER['HTTP_HOST'].'/'.$value->id.'/'.$routeListOrder?>'><p><?=$value->nome?></p></a>
+                            <?php endforeach ?>
+
 						</div>
 					</div>
 				</div>
 				<div class="col-md-8 column">
-					<?=
-                        $clienteContent
-                            ->setCliente($arClientesFull[$routeCliente])
-                            ->render()
-                        ;
-                    ?>
+
+                    <?php if ($routeCliente !== 0) : ?>
+                        <h2 id="nomeCliente"><?=$objCliente->nome?></h2>
+                        <ul>
+                            <li>Tipo Cliente: <span id="tipoCliente"><?=$objCliente->type?></span></li>
+                            <?php if($objCliente->type === 'PF') : ?>
+                                <li>CPF: <span id="cpf"><?=$objCliente->cpf?></span></li>
+                            <?php endif ?>
+
+                            <?php if($objCliente->type === 'PJ') : ?>
+                                <li>CNPJ: <span id="cnpj"><?=$objCliente->cnpj?></span></li>
+                            <?php endif ?>
+                            <li>Endereco: <span id="endereco"><?=$objCliente->endereco?></span></li>
+                            <li>Endereco Cobrança: <span id="enderecoCobranca"><?=$objCliente->enderecoCobranca?></span></li>
+                            <li>Telefone: <span id="telefone"><?=$objCliente->telefone?></span></li>
+                            <li>Grau Importancia: <span id="starts"><?=$objCliente->starts?></span></li>
+                        </ul>
+                    <?php endif ?>
+
 				</div>
 			</div>
 		</div>

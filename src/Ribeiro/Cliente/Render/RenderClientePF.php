@@ -2,15 +2,15 @@
 
 namespace Ribeiro\Cliente\Render;
 
-class RenderClienteList extends RenderClienteAbstract {
+class RenderClientePF extends RenderClienteAbstract {
 
     protected static $crudCliente;
 
-    public static function renderList(\Ribeiro\DB\CrudInterface $crudCliente, array $fields, $order){
+    public static function renderCliente(\Ribeiro\Cliente\Crud\CrudClientePF $crudClientePF, $idCliente)
+    {
+        self::$crudCliente = $crudClientePF;
 
-        self::$crudCliente = $crudCliente;
-
-        return self::$crudCliente->findAllOrderBy($fields, $order);
+        return self::$crudCliente->findByIdCliente($idCliente);
     }
 
     public static function render(\Ribeiro\DB\CrudInterface $crudCliente)

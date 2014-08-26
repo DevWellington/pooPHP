@@ -6,30 +6,24 @@ use \Ribeiro\Cliente\Render;
 
 abstract class RenderClienteAbstract implements RenderClienteInterface {
 
-    private $cliente;
-    private $html;
+    protected static $crudCliente;
+    protected static $html;
 
-    public function __construct(\Ribeiro\Cliente\ClienteAbstract $cliente = null){
-        $this->cliente = $cliente;
+    public static function getCrudCliente()
+    {
+        return self::$crudCliente;
     }
 
-    public function setCliente(\Ribeiro\Cliente\ClienteAbstract $cliente){
-        $this->cliente = $cliente;
-        return $this;
+    public static function getHtml()
+    {
+        return self::$html;
     }
 
-    public function getCliente(){
-        return $this->cliente;
+    public static function htmlAdd($html)
+    {
+        self::$html .= $html;
     }
 
-    public function getHtml(){
-        return $this->html;
-    }
-
-    public function htmlAdd($html){
-        $this->html .= $html;
-    }
-
-    public function render(){}
+    public static function render(\Ribeiro\DB\CrudInterface $crudCliente){}
 
 }

@@ -31,6 +31,12 @@ abstract class PersistClienteAbstract implements \Ribeiro\Cliente\Interfaces\Per
         return $this->cliente;
     }
 
-    public function save(){}
+    public function persist(){}
+    public function flush(array $parametros)
+    {
+        $parametros = (isset($parametros)) ? $parametros : null;
+
+        return $this->getCrudCliente()->insert($parametros);
+    }
 
 } 

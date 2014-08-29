@@ -7,6 +7,7 @@ interface PersistInterface {
     public function setCliente(\Ribeiro\Cliente\ClienteAbstract $cliente);
     public function getCliente();
 
-    public function save();
+    public function persist();
+    public function flush(array $parametros);
 
 } 

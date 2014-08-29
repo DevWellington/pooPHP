@@ -1,26 +1,39 @@
 <?php
 
-namespace Ribeiro\Cliente\Persist\Flush;
+namespace Ribeiro\Cliente\Persist;
 
-class FlushClientePJFactory {
+class PersistClientePJFactory {
 
     public static function execute(
         \PDO $pdo,
         \Ribeiro\Cliente\Types\ClientePJ $clientePJ
     ) {
-        $persistCliente = new \Ribeiro\Cliente\Persist\PersistCliente(
-            new \Ribeiro\Cliente\Crud\CrudCliente($pdo),
-            $clientePJ
-        );
+        try{
+            $persistCliente = new \Ribeiro\Cliente\Persist\PersistCliente(
+                new \Ribeiro\Cliente\Crud\CrudCliente($pdo),
+                $clientePJ
+            );
 
-        $lastInsertId = $persistCliente->save();
+            $lastInsertId = $persistCliente->flush(
+                $persistCliente->persist()
+            );
 
-        $persistClientePJ = new \Ribeiro\Cliente\Persist\PersistClientePJ(
-            new \Ribeiro\Cliente\Crud\CrudClientePJ($pdo),
-            $clientePJ
-        );
+            $persistClientePJ = new \Ribeiro\Cliente\Persist\PersistClientePJ(
+                new \Ribeiro\Cliente\Crud\CrudClientePJ($pdo),
+                $clientePJ
+            );
 
-        return $persistClientePJ->setIdCliente($lastInsertId)->save();
+            return $persistClientePJ->setIdCliente($lastInsertId)->flush(
+                $persistClientePJ->persist()
+            );
+
+
+        } catch (\Exception $e){
+            echo $e->getMessage();
+            return false;
+        }
+
+        return false;
     }
 
 }

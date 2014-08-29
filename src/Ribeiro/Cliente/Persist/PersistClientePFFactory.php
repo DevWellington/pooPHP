@@ -1,8 +1,8 @@
 <?php
 
-namespace Ribeiro\Cliente\Persist\Flush;
+namespace Ribeiro\Cliente\Persist;
 
-class FlushClientePFFactory {
+class PersistClientePFFactory {
 
     public static function execute(
         \PDO $pdo,
@@ -15,19 +15,25 @@ class FlushClientePFFactory {
                 $clientePF
             );
 
-            $lastInsertId = $persistCliente->save();
+            $lastInsertId = $persistCliente->flush(
+                $persistCliente->persist()
+            );
 
             $persistClientePF = new \Ribeiro\Cliente\Persist\PersistClientePF(
                 new \Ribeiro\Cliente\Crud\CrudClientePF($pdo),
                 $clientePF
             );
 
-            return $persistClientePF->setIdCliente($lastInsertId)->save();
+            return $persistClientePF->setIdCliente($lastInsertId)->flush(
+                $persistClientePF->persist()
+            );
 
         } catch (\Exception $e){
             echo $e->getMessage();
             return false;
         }
+
+        return false;
     }
 
 } 

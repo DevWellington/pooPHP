@@ -16,14 +16,13 @@ class PersistClientePJ extends \Ribeiro\Cliente\Persist\PersistClienteAbstract {
         return $this->idCliente;
     }
 
-    public function save(){
-
-        return parent::getCrudCliente()->insert(
-            array(
-                ':idCliente' => $this->idCliente,
-                ':cnpj' => parent::getCliente()->getCnpj(),
-                ':enderecoCobranca' => parent::getCliente()->getEnderecoCobranca()
-            )
+    public function persist()
+    {
+        return array(
+            ':idCliente' => $this->idCliente,
+            ':cnpj' => parent::getCliente()->getCnpj(),
+            ':enderecoCobranca' => parent::getCliente()->getEnderecoCobranca()
         );
     }
+
 }
